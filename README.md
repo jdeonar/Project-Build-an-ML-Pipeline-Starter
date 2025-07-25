@@ -1,3 +1,7 @@
+# For Evaluators
+GitHub repo: https://github.com/jdeonar/Project-Build-an-ML-Pipeline-Starter.git
+Weights and Balances URL: https://wandb.ai/jdeonar-western-governors-university/nyc_airbnb?nw=nwuserjdeonar
+
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
 You are working for a property management company renting rooms and properties for short periods of 
 time on various rental platforms. You need to estimate the typical price for a given property based 
