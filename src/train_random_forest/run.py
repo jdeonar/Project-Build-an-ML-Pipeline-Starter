@@ -8,11 +8,11 @@ import os
 import shutil
 import matplotlib.pyplot as plt
 import mlflow
-from mlflow.models import infer_signature
 import json
 
 import pandas as pd
 import numpy as np
+from mlflow.models import infer_signature
 from sklearn.compose import ColumnTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.impute import SimpleImputer
@@ -53,6 +53,7 @@ def go(args):
 
     # Use run.use_artifact(...).file() to get the train and validation artifact
     # and save the returned path in train_local_pat
+    logger.info("Downloading training set artifact")
     trainval_local_path = run.use_artifact(args.trainval_artifact).file()
    
     X = pd.read_csv(trainval_local_path)
@@ -92,7 +93,9 @@ def go(args):
         shutil.rmtree("random_forest_dir")
     
     export_path = "random_forest_dir"
-    signature = infer_signature(X_val, y_pred)
+    # testing to find ML flow exceptions
+    X_train_transformed = sk_pipe[:-1].transform(X_train)  # preprocess only
+    signature = infer_signature(X_train_transformed, y_pred)
     
     mlflow.sklearn.save_model(
         sk_pipe,
